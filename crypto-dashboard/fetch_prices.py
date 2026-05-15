@@ -1,3 +1,4 @@
+# fetch_prices.py
 # Fetch price API :  CoinGecko
 # https://www.youtube.com/watch?v=-GfeGQxdwG4
 
@@ -17,16 +18,11 @@ headers = {
 
 params = {
     "ids": "bitcoin,ethereum",
-    "vs_currencies": "usd"
+    "vs_currencies": "gbp"
 }
 
-response = requests.get(
-    url,
-    headers=headers,
-    params=params
-)
+def fetch_prices():
+    response = requests.get(url, headers=headers, params=params)
+    return response.json()
 
-data = response.json()
-
-print("Bitcoin:", data["bitcoin"]["usd"])
-print("Ethereum:", data["ethereum"]["usd"])
+print(fetch_prices())
