@@ -25,4 +25,4 @@ def fetch_prices():
     response = requests.get(url, headers=headers, params=params)
     return response.json()
 
-print(fetch_prices())
+#  print(fetch_prices())
