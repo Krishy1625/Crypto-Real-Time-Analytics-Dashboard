@@ -4,23 +4,17 @@ import pandas as pd
 
 def load_data():
     conn = sqlite3.connect("crypto.db")
-    df = pd.read_sql_query("SELECT * FROM prices", conn)
+    df = pd.read_sql("SELECT * FROM prices", conn)
     conn.close()
     return df
 
-def get_coin_data(df, coin):
+def get_coin(df, coin):
     return df[df["coin"] == coin]
 
-
-def moving_average(df, window=5):
+def add_moving_average(df):
     df = df.copy()
-    df["moving_avg"] = df["price"].rolling(window).mean()
+    df["ma_10"] = df["price"].rolling(10).mean()
     return df
 
-def stats(df):
-    return {
-        "mean": df["price"].mean(),
-        "max": df["price"].max(),
-        "min": df["price"].min(),
-        "volatility": df["price"].std()
-    }
+def volatility(df):
+    return df["price"].std()
