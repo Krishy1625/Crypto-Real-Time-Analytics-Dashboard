@@ -10,7 +10,7 @@ load_dotenv()
 # Initialise DB once
 init_db()
 
-COINGECKO_API_KEY = os.getenv("COINGECKO_API_KEY", "")
+COINGECKO_API_KEY = os.getenv("COINGECKO_API_KEY") or os.getenv("coingecko_api_key") or ""
 
 
 def fetch_prices():
