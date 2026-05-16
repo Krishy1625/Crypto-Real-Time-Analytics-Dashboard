@@ -1,6 +1,6 @@
 # analytics2.py
 import pandas as pd
-from database import get_connection
+from database import get_connection, init_db
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -8,6 +8,7 @@ load_dotenv()
 
 def load_data():
     """Load all price records from PostgreSQL."""
+    init_db()  # Ensure table exists
     conn = get_connection()
     df = pd.read_sql("SELECT * FROM prices ORDER BY timestamp", conn)
     conn.close()
