@@ -1,12 +1,15 @@
-# analytics.py
-import sqlite3
+# analytics2.py
 import pandas as pd
+from database import get_connection
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 def load_data():
-    """Load all price records from the SQLite database."""
-    conn = sqlite3.connect("crypto.db")
-    df = pd.read_sql("SELECT * FROM prices", conn)
+    """Load all price records from PostgreSQL."""
+    conn = get_connection()
+    df = pd.read_sql("SELECT * FROM prices ORDER BY timestamp", conn)
     conn.close()
     df["timestamp"] = pd.to_datetime(df["timestamp"])
     return df
